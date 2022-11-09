@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BulletDestroyer
+  - Obstacle
+  - Enemy
+  - Shuriken
+  - Shield
+  - Destroyer
   layers:
   - Default
   - TransparentFX
@@ -11,12 +17,12 @@ TagManager:
   - 
   - Water
   - UI
+  - Shuriken
+  - Enemy
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Immune
   - 
   - 
   - 
