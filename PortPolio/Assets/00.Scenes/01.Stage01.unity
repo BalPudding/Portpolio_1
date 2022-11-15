@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 242241198}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,7 +208,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!95 &242241195
 Animator:
   serializedVersion: 4
@@ -310,11 +310,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b32b224db1f674bb6c71a5cb8eaa19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Slash: {fileID: 7545663264450352082, guid: 7a831ca4c3470ed4aa61ab387c2d1c0b, type: 3}
   shuriken: {fileID: 7756590740931060934, guid: a0b7f17d67ce4a54a8a5c336c54405f0, type: 3}
   shield: {fileID: 2131250580}
   hitplatform: {fileID: 925772448}
   damagedObj: {fileID: 1558309082}
   jumpForce: 400
+  moveSpeed: 5
   jumpcount: 0
 --- !u!1 &359941007
 GameObject:
@@ -1802,6 +1804,10 @@ PrefabInstance:
     - target: {fileID: 7756590740931060934, guid: a0b7f17d67ce4a54a8a5c336c54405f0, type: 3}
       propertyPath: m_Name
       value: GenJi_Shuriken
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756590740931060934, guid: a0b7f17d67ce4a54a8a5c336c54405f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0b7f17d67ce4a54a8a5c336c54405f0, type: 3}

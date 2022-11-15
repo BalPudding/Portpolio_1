@@ -5,18 +5,20 @@ using UnityEngine;
 public class PlayerC : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
-    BoxCollider2D boxCollider2D;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    public SpriteRenderer Slash;
     public GameObject shuriken;
     public GameObject shield;
     public GameObject hitplatform;
     public GameObject damagedObj;
     public float jumpForce;
+    public float moveSpeed;
     public int jumpcount;
-    bool isSlide;
+    bool isMoving;
+    float Sdelay;
+    bool Sdelayon;
     bool isRising;
-    bool onGround = true;
     float leftdelay;
     bool ldelayon;
     float rightdelay;
@@ -29,40 +31,151 @@ public class PlayerC : MonoBehaviour
     bool damaged;
     float fade;
     bool fading;
-    // Start is called before the first frame update
+
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //좌우이동
+        float xInput = Input.GetAxis("Horizontal");
+        float xSpeed = xInput * moveSpeed;
+        if(xSpeed != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+        if(xSpeed < 0)
+        {
+            transform.localScale = new Vector3(-1, 1,1);
+        }
+        else if (xSpeed >0)
+        {
+            transform.localScale = new Vector3(1, 1,1);
+        }
+
+        Vector2 newVelocity = new Vector2(xSpeed, rigidbody2D.velocity.y);
+        rigidbody2D.velocity = newVelocity;
+
         //점프
         if (Input.GetKeyDown(KeyCode.Space) == true && jumpcount < 2)
         {
             isRising = true;
-            onGround = false;
             jumpcount += 1;
             rigidbody2D.velocity = Vector2.zero;
-
             rigidbody2D.AddForce(new Vector2(0, jumpForce));
         }
-        //슬라이딩
-        if (Input.GetKey(KeyCode.LeftControl) == true && onGround == true)
+        //질풍참
+        //좌상
+        if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
         {
-            isSlide = true;
-            boxCollider2D.offset = new Vector2(0, -0.45f);
-            boxCollider2D.size = new Vector2(1.9f, 0.9f);
+            transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 4f);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, 135);
+            Instantiate(obj, transform.position, obj.transform.rotation);
+            Sdelayon = true;
         }
-        else
+        //우상
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
         {
-            isSlide = false;
-            boxCollider2D.offset = new Vector2(0, 0f);
-            boxCollider2D.size = new Vector2(1.3f, 1.8f);
+            transform.position = new Vector2(transform.position.x + 4f, transform.position.y + 4f);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, 45);
+            Instantiate(obj, transform.position, obj.transform.rotation);
+            Sdelayon = true;
+        }
+        //좌하
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
+        {
+            transform.position = new Vector2(transform.position.x -4f , transform.position.y - 4f);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, -135);
+            Instantiate(obj, transform.position, obj.transform.rotation);
+            Sdelayon = true;
+            if (transform.position.y <= -3)
+            {
+                transform.position = new Vector2(transform.position.x, -3);
+            }
+        }
+        //우하
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
+        {
+            transform.position = new Vector2(transform.position.x + 4f, transform.position.y - 4f);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, -45);
+            Instantiate(obj, transform.position, obj.transform.rotation);
+            Sdelayon = true;
+            if (transform.position.y <= -3)
+            {
+                transform.position = new Vector2(transform.position.x, -3);
+            }
+        }
+        //우
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.D) == true && Sdelayon == false)
+        {
+            transform.position = new Vector2(transform.position.x + 6f, transform.position.y);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            Instantiate(obj, transform.position, transform.rotation);
+            Sdelayon = true;
+        }
+        //좌
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.A) == true && Sdelayon == false)
+        {
+            transform.position = new Vector2(transform.position.x - 6f, transform.position.y);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = true;
+            Instantiate(obj, transform.position, transform.rotation);
+            Sdelayon = true;
+        }
+        //상
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Sdelayon == false)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y+6f);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, 90);
+            Instantiate(obj, transform.position, obj.transform.rotation);
+            Sdelayon = true;
+        }
+        //하
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Sdelayon == false)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y - 6f);
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, -90);
+            Instantiate(obj, transform.position, obj.transform.rotation);
+            Sdelayon = true;
+            if(transform.position.y <= -3)
+            {
+                transform.position = new Vector2(transform.position.x, -3);
+            }
+        }
+
+        if (Sdelayon == true)
+        {
+            Sdelay += Time.deltaTime;
+            if(Sdelayon == false)
+            {
+                Sdelay = 0;
+            }
+            else if (Sdelay >= 1)
+            {
+                Sdelayon = false;
+                Sdelay = 0;
+            }
         }
         //마우스 좌클릭 공격
         if (Input.GetKey(KeyCode.Mouse0) == true && ldelayon == false && rdelayon == false && bullet != 0 && Adelay == false)
@@ -134,8 +247,8 @@ public class PlayerC : MonoBehaviour
         }
         fade += Time.deltaTime;
         //애니메이터
-        animator.SetBool("Sliding", isSlide);
         animator.SetBool("Jumping", isRising);
+        animator.SetBool("Moving", isMoving);
     }
     //좌클릭 코루틴
     IEnumerator LeftClick()
@@ -194,7 +307,6 @@ public class PlayerC : MonoBehaviour
         if (collision.contacts[0].normal.y > 0.7f)
         {
             isRising = false;
-            onGround = true;
             jumpcount = 0;
         }
     }
