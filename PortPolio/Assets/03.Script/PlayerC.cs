@@ -23,14 +23,15 @@ public class PlayerC : MonoBehaviour
     bool ldelayon;
     float rightdelay;
     bool rdelayon;
-    int bullet = 30;
+    public int bullet = 30;
     int maxbullet = 30;
     bool deflect;
-    bool deflectCool;
+    public bool deflectCool;
     bool Adelay;
     bool damaged;
     float fade;
     bool fading;
+    public float deflectcoolUI = 8;
 
     void Start()
     {
@@ -82,6 +83,7 @@ public class PlayerC : MonoBehaviour
             obj.transform.rotation = Quaternion.Euler(0, 0, 135);
             Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
         }
         //우상
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
@@ -92,6 +94,7 @@ public class PlayerC : MonoBehaviour
             obj.transform.rotation = Quaternion.Euler(0, 0, 45);
             Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
         }
         //좌하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
@@ -106,6 +109,7 @@ public class PlayerC : MonoBehaviour
             {
                 transform.position = new Vector2(transform.position.x, -3);
             }
+            rigidbody2D.velocity = Vector2.zero;
         }
         //우하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
@@ -120,6 +124,7 @@ public class PlayerC : MonoBehaviour
             {
                 transform.position = new Vector2(transform.position.x, -3);
             }
+            rigidbody2D.velocity = Vector2.zero;
         }
         //우
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.D) == true && Sdelayon == false)
@@ -129,6 +134,7 @@ public class PlayerC : MonoBehaviour
             Slash.flipX = false;
             Instantiate(obj, transform.position, transform.rotation);
             Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
         }
         //좌
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.A) == true && Sdelayon == false)
@@ -138,6 +144,7 @@ public class PlayerC : MonoBehaviour
             Slash.flipX = true;
             Instantiate(obj, transform.position, transform.rotation);
             Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
         }
         //상
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Sdelayon == false)
@@ -148,6 +155,7 @@ public class PlayerC : MonoBehaviour
             obj.transform.rotation = Quaternion.Euler(0, 0, 90);
             Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
         }
         //하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Sdelayon == false)
@@ -162,19 +170,20 @@ public class PlayerC : MonoBehaviour
             {
                 transform.position = new Vector2(transform.position.x, -3);
             }
+            rigidbody2D.velocity = Vector2.zero;
         }
 
         if (Sdelayon == true)
         {
-            Sdelay += Time.deltaTime;
+            Sdelay -= Time.deltaTime;
             if(Sdelayon == false)
             {
-                Sdelay = 0;
+                Sdelay = 8;
             }
-            else if (Sdelay >= 1)
+            else if (Sdelay == 0)
             {
                 Sdelayon = false;
-                Sdelay = 0;
+                Sdelay = 8;
             }
         }
         //마우스 좌클릭 공격
@@ -228,6 +237,14 @@ public class PlayerC : MonoBehaviour
             Adelay = true;
             StartCoroutine("Deflect");
             StartCoroutine("DeflectCool");
+        }
+        if (deflectCool == true)
+        {
+            deflectcoolUI -= Time.deltaTime;
+        }
+        else
+        {
+            deflectcoolUI = 9f;
         }
         //페이드
         if (fading == true)
