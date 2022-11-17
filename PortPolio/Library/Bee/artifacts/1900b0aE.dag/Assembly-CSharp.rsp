@@ -376,6 +376,7 @@
 "Assets/03.Script/Blinking.cs"
 "Assets/03.Script/Delete.cs"
 "Assets/03.Script/EnemyBullet.cs"
+"Assets/03.Script/EnemyData.cs"
 "Assets/03.Script/GameManager.cs"
 "Assets/03.Script/Obstacle.cs"
 "Assets/03.Script/PlayerC.cs"

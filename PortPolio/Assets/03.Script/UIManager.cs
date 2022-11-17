@@ -34,11 +34,15 @@ public class UIManager : MonoBehaviour
     PlayerC playerC;
     public Slider hpBar;
     public Slider deflectBar;
+    public Slider slashBar;
     public float maxHP;
     public float currentHP;
-    public float maxCool = 8;
-    public float deCool;
+    public float sMaxCool = 8;
+    public float sCool;
+    float maxCool = 8;
+    float deCool;
     public TextMeshProUGUI current;
+    public TextMeshProUGUI slashcool;
     public TextMeshProUGUI deflectcool;
 
 
@@ -48,8 +52,26 @@ public class UIManager : MonoBehaviour
     }
     void Update()
     {
+        //Ã¼·Â
+        hpBar.value = currentHP / maxHP;
+        //ÃÑ¾Ë
         current.text = playerC.bullet.ToString();
-        if(playerC.deflectCool == true)
+        //ÁúÇ³Âü
+        if (playerC.Sdelayon == true)
+        {
+            sCool += Time.deltaTime;
+            slashcool.color = new Color(0, 0, 0, 255f);
+            slashcool.text = playerC.Sdelay.ToString("F0");
+        }
+        else
+        {
+            sCool = 0;
+            slashcool.color = new Color(0, 0, 0, 0f);
+        }
+         slashBar.value = sCool / sMaxCool;
+
+        //Æ¨°Ü³»±â
+        if (playerC.deflectCool == true)
         {
             deCool += Time.deltaTime;
             deflectcool.color = new Color(0, 0, 0, 255f);
@@ -60,7 +82,6 @@ public class UIManager : MonoBehaviour
             deCool = 0;
             deflectcool.color = new Color(0, 0, 0, 0f);
         }
-        hpBar.value = currentHP / maxHP;
         deflectBar.value = deCool / maxCool;
     }
 }

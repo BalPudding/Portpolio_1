@@ -7,6 +7,7 @@ public class PlayerC : MonoBehaviour
     Rigidbody2D rigidbody2D;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    Scrolling scrolling;
     public SpriteRenderer Slash;
     public GameObject shuriken;
     public GameObject shield;
@@ -16,8 +17,8 @@ public class PlayerC : MonoBehaviour
     public float moveSpeed;
     public int jumpcount;
     bool isMoving;
-    float Sdelay;
-    bool Sdelayon;
+    public float Sdelay;
+    public bool Sdelayon;
     bool isRising;
     float leftdelay;
     bool ldelayon;
@@ -31,17 +32,18 @@ public class PlayerC : MonoBehaviour
     bool damaged;
     float fade;
     bool fading;
-    public float deflectcoolUI = 8;
+    public float deflectcoolUI;
 
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        scrolling = shuriken.GetComponent<Scrolling>();
     }
 
     void Update()
-    {
+    { 
         //좌우이동
         float xInput = Input.GetAxis("Horizontal");
         float xSpeed = xInput * moveSpeed;
@@ -55,11 +57,11 @@ public class PlayerC : MonoBehaviour
         }
         if(xSpeed < 0)
         {
-            transform.localScale = new Vector3(-1, 1,1);
+            spriteRenderer.flipX = true;
         }
         else if (xSpeed >0)
         {
-            transform.localScale = new Vector3(1, 1,1);
+            spriteRenderer.flipX = false;
         }
 
         Vector2 newVelocity = new Vector2(xSpeed, rigidbody2D.velocity.y);
@@ -172,23 +174,31 @@ public class PlayerC : MonoBehaviour
             }
             rigidbody2D.velocity = Vector2.zero;
         }
-
+        if (Sdelay <= 1)
+        {
+            Sdelayon = false;
+            Sdelay = 9;
+        }
+        else if (Sdelayon == false)
+        {
+            Sdelay = 9;
+        }
         if (Sdelayon == true)
         {
             Sdelay -= Time.deltaTime;
-            if(Sdelayon == false)
-            {
-                Sdelay = 8;
-            }
-            else if (Sdelay == 0)
-            {
-                Sdelayon = false;
-                Sdelay = 8;
-            }
         }
+
         //마우스 좌클릭 공격
         if (Input.GetKey(KeyCode.Mouse0) == true && ldelayon == false && rdelayon == false && bullet != 0 && Adelay == false)
         {
+            if (spriteRenderer.flipX == true)
+            {
+                scrolling.speed = 30;
+            }
+            else
+            {
+                scrolling.speed = -30;
+            }
             bullet -= 1;
             GameObject bullet1 = Instantiate(shuriken, transform.position, transform.rotation);
             StartCoroutine("LeftClick");
@@ -206,6 +216,14 @@ public class PlayerC : MonoBehaviour
         //마우스 우클릭 공격
         if (Input.GetKey(KeyCode.Mouse1) == true && ldelayon == false && rdelayon == false && bullet != 0 && Adelay == false)
         {
+            if (spriteRenderer.flipX == true)
+            {
+                scrolling.speed = 30;
+            }
+            else
+            {
+                scrolling.speed = -30;
+            }
             bullet -= 3;
             GameObject bulletT = Instantiate(shuriken, transform.position, Quaternion.Euler(0, 0, 15));
             GameObject bulletM = Instantiate(shuriken, transform.position, transform.rotation);
@@ -329,7 +347,15 @@ public class PlayerC : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Obstacle"|| collision.gameObject.tag == "Enemy")
+
+        if(shield.activeInHierarchy == false)
+        {
+            if(collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
+            {
+                OnDamage();
+            }
+        }
+        else if (collision.gameObject.tag == "Enemy")
         {
             OnDamage();
         }
