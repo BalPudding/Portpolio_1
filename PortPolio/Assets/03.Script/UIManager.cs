@@ -35,10 +35,13 @@ public class UIManager : MonoBehaviour
     public Slider hpBar;
     public Slider deflectBar;
     public Slider slashBar;
+    public Slider dragonBar;
     public float maxHP;
     public float currentHP;
     public float sMaxCool = 8;
     public float sCool;
+    public float maxDragon;
+    public float currentDragon;
     float maxCool = 8;
     float deCool;
     public TextMeshProUGUI current;
@@ -54,6 +57,10 @@ public class UIManager : MonoBehaviour
     {
         //Ã¼·Â
         hpBar.value = currentHP / maxHP;
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
         //ÃÑ¾Ë
         current.text = playerC.bullet.ToString();
         //ÁúÇ³Âü
@@ -83,5 +90,7 @@ public class UIManager : MonoBehaviour
             deflectcool.color = new Color(0, 0, 0, 0f);
         }
         deflectBar.value = deCool / maxCool;
+        //¿ë°Ë
+        dragonBar.value = currentDragon / maxDragon;
     }
 }

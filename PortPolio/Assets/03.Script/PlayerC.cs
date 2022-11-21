@@ -350,12 +350,12 @@ public class PlayerC : MonoBehaviour
 
         if(shield.activeInHierarchy == false)
         {
-            if(collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
+            if(collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy"||collision.gameObject.tag == "Bullet")
             {
                 OnDamage();
             }
         }
-        else if (collision.gameObject.tag == "Enemy")
+        else if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
         {
             OnDamage();
         }
