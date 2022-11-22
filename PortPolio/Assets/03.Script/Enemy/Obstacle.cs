@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    PlayerC playerC;
     public bool cankill;
     public float damage;
     public float effectSize;
     public int health;
+    private void Start()
+    {
+        playerC = GameObject.Find("Player").GetComponent<PlayerC>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Shuriken"&& cankill == true)
@@ -24,6 +29,10 @@ public class Obstacle : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             UIManager.Instance.currentHP -= damage;
+        }
+        if(gameObject.transform.position.x - playerC.transform.position.x <= -14f)
+        {
+            Destroy(gameObject);
         }
     }
 }

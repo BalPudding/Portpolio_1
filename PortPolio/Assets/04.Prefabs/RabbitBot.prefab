@@ -222,6 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cankill: 1
-  damage: 30
+  damage: 50
   effectSize: 8
   health: 20

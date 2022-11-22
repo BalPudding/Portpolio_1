@@ -14,7 +14,7 @@ public class Death : MonoBehaviour
                 GameObject Obj = Resources.Load<GameObject>("Prefabs/Effect_Die");
                 Instantiate(Obj, transform.position, Quaternion.Euler(0, 0, j));
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

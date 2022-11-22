@@ -33,7 +33,10 @@ public class PlayerC : MonoBehaviour
     float fade;
     bool fading;
     public float deflectcoolUI;
-
+    public float playerDistrictL;
+    public float playerDistrictR;
+    public float playerDistrictB;
+    bool freeze;
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -43,7 +46,20 @@ public class PlayerC : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
+        //이동제한
+        if (transform.position.x <= playerDistrictL)
+        {
+            transform.position = new Vector2(playerDistrictL + 1, transform.position.y);
+        }
+        if(transform.position.x>= playerDistrictR)
+        {
+            transform.position = new Vector2(playerDistrictR - 1, transform.position.y);
+        }
+        if(transform.position.y <= playerDistrictB)
+        {
+            transform.position = new Vector2(transform.position.x, playerDistrictB + 3);
+        }
         //좌우이동
         float xInput = Input.GetAxis("Horizontal");
         float xSpeed = xInput * moveSpeed;
@@ -79,7 +95,7 @@ public class PlayerC : MonoBehaviour
         //좌상
         if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 4f);
+            transform.Translate(  new Vector2(- 4f, 4f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, 135);
@@ -90,7 +106,7 @@ public class PlayerC : MonoBehaviour
         //우상
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x + 4f, transform.position.y + 4f);
+            transform.Translate(new Vector2(4f, 4f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, 45);
@@ -101,37 +117,29 @@ public class PlayerC : MonoBehaviour
         //좌하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x -4f , transform.position.y - 4f);
+            transform.Translate(new Vector2(-4f, -4f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, -135);
             Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
-            if (transform.position.y <= -3)
-            {
-                transform.position = new Vector2(transform.position.x, -3);
-            }
             rigidbody2D.velocity = Vector2.zero;
         }
         //우하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x + 4f, transform.position.y - 4f);
+            transform.Translate(new Vector2(4f, -4f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, -45);
             Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
-            if (transform.position.y <= -3)
-            {
-                transform.position = new Vector2(transform.position.x, -3);
-            }
             rigidbody2D.velocity = Vector2.zero;
         }
         //우
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.D) == true && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x + 6f, transform.position.y);
+            transform.Translate(new Vector2(6f,0));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             Instantiate(obj, transform.position, transform.rotation);
@@ -141,7 +149,7 @@ public class PlayerC : MonoBehaviour
         //좌
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.A) == true && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x - 6f, transform.position.y);
+            transform.Translate(new Vector2(-6f, 0));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = true;
             Instantiate(obj, transform.position, transform.rotation);
@@ -151,7 +159,7 @@ public class PlayerC : MonoBehaviour
         //상
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y+6f);
+            transform.Translate(new Vector2(0, 6f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -162,26 +170,22 @@ public class PlayerC : MonoBehaviour
         //하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Sdelayon == false)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y - 6f);
+            transform.Translate(new Vector2(0, -6f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, -90);
             Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
-            if(transform.position.y <= -3)
-            {
-                transform.position = new Vector2(transform.position.x, -3);
-            }
             rigidbody2D.velocity = Vector2.zero;
         }
         if (Sdelay <= 1)
         {
             Sdelayon = false;
-            Sdelay = 9;
+            Sdelay = 2;
         }
         else if (Sdelayon == false)
         {
-            Sdelay = 9;
+            Sdelay = 2;
         }
         if (Sdelayon == true)
         {
@@ -281,6 +285,14 @@ public class PlayerC : MonoBehaviour
             }
         }
         fade += Time.deltaTime;
+        //얼리기
+        if(freeze == true)
+        {
+            rigidbody2D.velocity = Vector2.zero;
+            isRising = true;
+            spriteRenderer.flipX = false;
+            transform.position = new Vector2(transform.position.x, transform.position.y);
+        }
         //애니메이터
         animator.SetBool("Jumping", isRising);
         animator.SetBool("Moving", isMoving);
@@ -326,6 +338,11 @@ public class PlayerC : MonoBehaviour
         spriteRenderer.color = new Color(1f, 1f, 1f, 255);
         gameObject.layer = 0;
     }
+    IEnumerator FreezeC()
+    {
+        yield return new WaitForSeconds(3.0f);
+        freeze = false;
+    }
     //데미지메서드
     void OnDamage()
     {
@@ -335,6 +352,12 @@ public class PlayerC : MonoBehaviour
         gameObject.layer = 11;
         StartCoroutine("OnDamageC");
         fading = true;
+    }
+    //위치값 고정 메서드
+    public void Freeze()
+    {
+        freeze = true;
+        StartCoroutine("FreezeC");
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -360,4 +383,5 @@ public class PlayerC : MonoBehaviour
             OnDamage();
         }
     }
+
 }
