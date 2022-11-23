@@ -6,6 +6,12 @@ public class FieldChange : MonoBehaviour
 {
     PlayerC playerC;
     CameraController cameraController;
+    public GameObject activate;
+    public GameObject inactivate;
+    public float newDistrictL;
+    public float newDistrictR;
+    public float newDistrictB;
+    public float changeRocate;
     private void Awake()
     {
         playerC = GameObject.Find("Player").GetComponent<PlayerC>();
@@ -15,10 +21,18 @@ public class FieldChange : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            playerC.playerDistrictL = 195f;
-            playerC.playerDistrictB = -28f;
-            cameraController.CameraChange01();
+            playerC.playerDistrictL = newDistrictL;
+            playerC.playerDistrictR = newDistrictR;
+            playerC.playerDistrictB = newDistrictB;
+            cameraController.changeRocate = changeRocate;
+            cameraController.cameraMoving_00 = true;
             playerC.Freeze();
+            activate.SetActive(true);
+            Invoke("Inactivate", 4f);
         }
+    }
+    void Inactivate()
+    {
+        inactivate.SetActive(false);
     }
 }

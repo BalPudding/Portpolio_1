@@ -374,6 +374,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/03.Script/Blinking.cs"
+"Assets/03.Script/Block.cs"
 "Assets/03.Script/CameraController.cs"
 "Assets/03.Script/Death.cs"
 "Assets/03.Script/Death_Effect.cs"

@@ -9,6 +9,7 @@ public class Obstacle : MonoBehaviour
     public float damage;
     public float effectSize;
     public int health;
+    public float destroyRocate=-14f;
     private void Start()
     {
         playerC = GameObject.Find("Player").GetComponent<PlayerC>();
@@ -30,7 +31,7 @@ public class Obstacle : MonoBehaviour
         {
             UIManager.Instance.currentHP -= damage;
         }
-        if(gameObject.transform.position.x - playerC.transform.position.x <= -14f)
+        if(gameObject.transform.position.x - playerC.transform.position.x <= destroyRocate)
         {
             Destroy(gameObject);
         }
