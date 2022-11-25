@@ -9,11 +9,18 @@ public class CameraController : MonoBehaviour
     public float cameraY = 0f;
     public bool cameraMoving_00;
     public float changeRocate;
+    bool reaperCam;
 
     public GameObject player;
 
     private void Update()
     {
+        if(transform.position.x >= 411 && reaperCam ==false)
+        {
+            reaperCam = true;
+            isHorizontal = false;
+            transform.position = new Vector3(411, -41,-10);
+        }
         if (isHorizontal == true)
         {
             Vector3 dir = player.transform.position - this.transform.position;
@@ -29,5 +36,9 @@ public class CameraController : MonoBehaviour
                 cameraY = 0;
             }
         }
+    }
+    public void ReaperCam()
+    {
+        transform.position = new Vector3(438, -41,-10);
     }
 }

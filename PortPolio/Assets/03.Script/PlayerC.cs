@@ -36,7 +36,7 @@ public class PlayerC : MonoBehaviour
     public float playerDistrictL;
     public float playerDistrictR;
     public float playerDistrictB;
-    bool freeze;
+    public bool freeze;
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -95,7 +95,7 @@ public class PlayerC : MonoBehaviour
         //аб╩С
         if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
         {
-            transform.Translate(  new Vector2(- 4f, 4f));
+            transform.Translate(new Vector2(- 4f, 4f));
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, 135);

@@ -15,19 +15,22 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.x - playerC.transform.position.x <= 13f && gameObject.transform.position.x - playerC.transform.position.x >= -13f)
+        if (playerC.freeze != true)
         {
-            spawnCool -= Time.deltaTime;
-            if (spawnCool <= 0)
+            if (gameObject.transform.position.x - playerC.transform.position.x <= 13f && gameObject.transform.position.x - playerC.transform.position.x >= -13f)
+            {
+                spawnCool -= Time.deltaTime;
+                if (spawnCool <= 0)
+                {
+                    spawnCool = Random.Range(2.0f, 3.0f);
+                    GameObject obj = Resources.Load<GameObject>("Prefabs/Enemy");
+                    Instantiate(obj, transform.position, transform.rotation);
+                }
+            }
+            else
             {
                 spawnCool = Random.Range(2.0f, 3.0f);
-                GameObject obj = Resources.Load<GameObject>("Prefabs/Enemy");
-                Instantiate(obj, transform.position, transform.rotation);
             }
-        }
-        else
-        {
-            spawnCool = Random.Range(2.0f, 3.0f);
         }
     }
 }
