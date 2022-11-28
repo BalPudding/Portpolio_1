@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3019323291004596669}
   - component: {fileID: 3019323291004596642}
   - component: {fileID: 3019323291004596641}
-  - component: {fileID: 3019323291004596640}
-  - component: {fileID: 157842803}
+  - component: {fileID: 644937335}
+  - component: {fileID: 644937340}
+  - component: {fileID: 644937341}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3019323291004596668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.08, y: -3.25, z: -0.056059767}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 3019323291004596668}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2216a07adddae4cf792492157b6ffa0e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7cd832fbdbdcaa64d92b14022e17bb96, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -156,7 +157,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.2}
   m_EdgeRadius: 0
---- !u!114 &3019323291004596640
+--- !u!114 &644937335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,10 +166,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3019323291004596668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b5c58c8c1416d448de51605047a966, type: 3}
+  m_Script: {fileID: 11500000, guid: 6161e3e13e297a54f860129fee0204f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &157842803
+  cankill: 0
+  damage: 30
+  effectSize: 0
+  health: 0
+  destroyRocate: -14
+--- !u!114 &644937340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,7 +183,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3019323291004596668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b43573742bb714fae38ad77bb7bdcc, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a289fa9c766da742b511e39331db61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  leftPosition: 190
+  RightPosition: 200
+--- !u!114 &644937341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019323291004596668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da2a3419d8a9054d979b09e34b17395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+  speed: 5

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerC : MonoBehaviour
 {
+    private static PlayerC instance = null;
     Rigidbody2D rigidbody2D;
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -11,7 +12,6 @@ public class PlayerC : MonoBehaviour
     public SpriteRenderer Slash;
     public GameObject shuriken;
     public GameObject shield;
-    public GameObject hitplatform;
     public GameObject damagedObj;
     public float jumpForce;
     public float moveSpeed;
@@ -37,6 +37,35 @@ public class PlayerC : MonoBehaviour
     public float playerDistrictR;
     public float playerDistrictB;
     public bool freeze;
+
+    [Header("레이캐스트 사용 변수")]
+    public float distance;
+    public LayerMask layerMask;
+    int rayRange;
+
+    //인스턴스화
+    private void Awake()
+    {
+        if (null == instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    public static PlayerC Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -47,6 +76,9 @@ public class PlayerC : MonoBehaviour
 
     void Update()
     {
+        
+        Debug.DrawRay(transform.position, this.transform.right * distance, new Color(0, 1, 0));
+        Debug.Log(rayRange);
         //이동제한
         if (transform.position.x <= playerDistrictL)
         {
@@ -92,21 +124,19 @@ public class PlayerC : MonoBehaviour
             rigidbody2D.AddForce(new Vector2(0, jumpForce));
         }
         //질풍참
-        //좌상
-        if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
-        {
-            transform.Translate(new Vector2(- 4f, 4f));
-            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
-            Slash.flipX = false;
-            obj.transform.rotation = Quaternion.Euler(0, 0, 135);
-            Instantiate(obj, transform.position, obj.transform.rotation);
-            Sdelayon = true;
-            rigidbody2D.velocity = Vector2.zero;
-        }
         //우상
-        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
+        if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
         {
-            transform.Translate(new Vector2(4f, 4f));
+            rayRange = 1;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(4f, 4f)); ;
+            }
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, 45);
@@ -114,21 +144,20 @@ public class PlayerC : MonoBehaviour
             Sdelayon = true;
             rigidbody2D.velocity = Vector2.zero;
         }
-        //좌하
-        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
-        {
-            transform.Translate(new Vector2(-4f, -4f));
-            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
-            Slash.flipX = false;
-            obj.transform.rotation = Quaternion.Euler(0, 0, -135);
-            Instantiate(obj, transform.position, obj.transform.rotation);
-            Sdelayon = true;
-            rigidbody2D.velocity = Vector2.zero;
-        }
         //우하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.D) && Sdelayon == false)
         {
-            transform.Translate(new Vector2(4f, -4f));
+            rayRange = 3;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(4f, -4f));
+            }
+
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, -45);
@@ -136,30 +165,61 @@ public class PlayerC : MonoBehaviour
             Sdelayon = true;
             rigidbody2D.velocity = Vector2.zero;
         }
-        //우
-        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.D) == true && Sdelayon == false)
+        //좌하
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
         {
-            transform.Translate(new Vector2(6f,0));
+            rayRange = 5;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(-4f, -4f));
+            }
+
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
-            Instantiate(obj, transform.position, transform.rotation);
+            obj.transform.rotation = Quaternion.Euler(0, 0, -135);
+            Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
             rigidbody2D.velocity = Vector2.zero;
         }
-        //좌
-        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.A) == true && Sdelayon == false)
+        //좌상
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.A) && Sdelayon == false)
         {
-            transform.Translate(new Vector2(-6f, 0));
+            rayRange = 7;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(-4f, 4f));
+            }
+
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
-            Slash.flipX = true;
-            Instantiate(obj, transform.position, transform.rotation);
+            Slash.flipX = false;
+            obj.transform.rotation = Quaternion.Euler(0, 0, 135);
+            Instantiate(obj, transform.position, obj.transform.rotation);
             Sdelayon = true;
             rigidbody2D.velocity = Vector2.zero;
         }
         //상
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.W) == true && Sdelayon == false)
         {
-            transform.Translate(new Vector2(0, 6f));
+            rayRange = 0;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(0, 6f));
+            }
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -167,10 +227,41 @@ public class PlayerC : MonoBehaviour
             Sdelayon = true;
             rigidbody2D.velocity = Vector2.zero;
         }
+        
+        //우
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.D) == true && Sdelayon == false)
+        {
+            rayRange = 2;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(6f, 0));
+            }
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = false;
+            Instantiate(obj, transform.position, transform.rotation);
+            Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
+        }
+        
         //하
         else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.S) == true && Sdelayon == false)
         {
-            transform.Translate(new Vector2(0, -6f));
+            rayRange = 4;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(0, -6f));
+            }
+            
             GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
             Slash.flipX = false;
             obj.transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -178,6 +269,28 @@ public class PlayerC : MonoBehaviour
             Sdelayon = true;
             rigidbody2D.velocity = Vector2.zero;
         }
+        
+        //좌
+        else if (Input.GetKeyDown(KeyCode.LeftShift) == true && Input.GetKey(KeyCode.A) == true && Sdelayon == false)
+        {
+            rayRange = 6;
+            RaycastHit2D hit = RayCheck();
+            if (hit.point != new Vector2(0, 0))
+            {
+                transform.Translate(hit.point - (Vector2)transform.position);
+            }
+            else
+            {
+                transform.Translate(new Vector2(-6f, 0));
+            }
+            
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Slash");
+            Slash.flipX = true;
+            Instantiate(obj, transform.position, transform.rotation);
+            Sdelayon = true;
+            rigidbody2D.velocity = Vector2.zero;
+        }
+        
         if (Sdelay <= 1)
         {
             Sdelayon = false;
@@ -333,7 +446,6 @@ public class PlayerC : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         damagedObj.SetActive(false);
         yield return new WaitForSeconds(1.5f);
-        hitplatform.SetActive(false);
         fading = false;
         spriteRenderer.color = new Color(1f, 1f, 1f, 255);
         gameObject.layer = 0;
@@ -348,7 +460,6 @@ public class PlayerC : MonoBehaviour
     {
         damagedObj.SetActive(true);
         animator.SetTrigger("Damaged");
-        hitplatform.SetActive(true);
         gameObject.layer = 11;
         StartCoroutine("OnDamageC");
         fading = true;
@@ -383,5 +494,47 @@ public class PlayerC : MonoBehaviour
             OnDamage();
         }
     }
+    //레이케스트
+    public RaycastHit2D RayCheck()
+    {
+        RaycastHit2D hit;
+        if (rayRange == 0)
+        {
+            hit = Physics2D.Raycast(this.transform.position, transform.up, distance, layerMask);
+        }
+        else if (rayRange == 1)
+        {
+            hit = Physics2D.Raycast(this.transform.position, new Vector3(1, 1, 0), distance, layerMask);
+        }
+        else if (rayRange == 2)
+        {
+            hit = Physics2D.Raycast(this.transform.position, transform.right, distance, layerMask);
+        }
+        else if (rayRange == 3)
+        {
+            hit = Physics2D.Raycast(this.transform.position, new Vector3(1, -1, 0), distance, layerMask);
+        }
+        else if (rayRange == 4)
+        {
+            hit = Physics2D.Raycast(this.transform.position, new Vector3(0, -1, 0), distance, layerMask);
+        }
+        else if (rayRange == 5)
+        {
+            hit = Physics2D.Raycast(this.transform.position, new Vector3(-1, -1, 0), distance, layerMask);
+        }
+        else if (rayRange == 6)
+        {
+            hit = Physics2D.Raycast(this.transform.position, new Vector3(-1, 0, 0), distance, layerMask);
+        }
+        else if (rayRange == 7)
+        {
+            hit = Physics2D.Raycast(this.transform.position, new Vector3(-1, 1, 0), distance, layerMask);
+        }
+        else
+        {
+            hit = Physics2D.Raycast(this.transform.position, transform.up, distance, layerMask);
+        }
 
+        return hit;
+    }
 }
