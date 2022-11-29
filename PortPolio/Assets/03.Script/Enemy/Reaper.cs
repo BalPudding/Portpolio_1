@@ -6,10 +6,12 @@ public class Reaper : MonoBehaviour
 {
     Animator animator;
     SpriteRenderer spriteRenderer;
-    public GameObject reaper_bullet;
+    public GameObject reaper_bullet_3;
+    public GameObject reaper_bullet_6;
     int positionRange = 6;
     int patternRange = 4;
     float movingCool;
+    public float difficulty;
     bool patternCool;
     bool isMoving;
     bool isShooting;
@@ -37,7 +39,7 @@ public class Reaper : MonoBehaviour
         }
         //움직임 속도
         movingCool += Time.deltaTime;
-        if (movingCool >= 5)
+        if (movingCool >= difficulty)
         {
             movingCool = 0;
             isShooting = false;
@@ -259,81 +261,52 @@ public class Reaper : MonoBehaviour
     void Shoot_3()
     {
         isShooting = true;
-        GameObject bulletT = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bulletM = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bulletB = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        GameObject bulletT = Instantiate(reaper_bullet_3, transform.position, transform.rotation);
+        //GameObject bulletM = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        //GameObject bulletB = Instantiate(reaper_bullet, transform.position, transform.rotation);
 
-        bulletT.transform.LookAt(PlayerC.Instance.transform.position);
-        bulletM.transform.LookAt(PlayerC.Instance.transform.position);
-        bulletB.transform.LookAt(PlayerC.Instance.transform.position);
+        //bulletT.transform.LookAt(PlayerC.Instance.transform.position);
+        //bulletM.transform.LookAt(PlayerC.Instance.transform.position);
+        //bulletB.transform.LookAt(PlayerC.Instance.transform.position);
 
-        bulletT.transform.rotation = Quaternion.Euler(0, 0, 15);
-        bulletM.transform.rotation = Quaternion.Euler(0, 0, 0);
-        bulletB.transform.rotation = Quaternion.Euler(0, 0, -15);
+        //bulletT.transform.rotation = Quaternion.Euler(0, 0, 15);
+        //bulletM.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //bulletB.transform.rotation = Quaternion.Euler(0, 0, -15);
     }
     void Shoot_6()
     {
         isShooting = true;
-        GameObject bullet_6_01 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_02 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_03 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_04 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_05 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_06 = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        GameObject bullet_6_01 = Instantiate(reaper_bullet_6, transform.position, transform.rotation);
+        //GameObject bullet_6_02 = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        //GameObject bullet_6_03 = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        //GameObject bullet_6_04 = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        //GameObject bullet_6_05 = Instantiate(reaper_bullet, transform.position, transform.rotation);
+        //GameObject bullet_6_06 = Instantiate(reaper_bullet, transform.position, transform.rotation);
 
-        bullet_6_01.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_02.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_03.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_04.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_05.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_06.transform.LookAt(PlayerC.Instance.transform.position);
+        //bullet_6_01.transform.LookAt(PlayerC.Instance.transform.position);
+        //bullet_6_02.transform.LookAt(PlayerC.Instance.transform.position);
+        //bullet_6_03.transform.LookAt(PlayerC.Instance.transform.position);
+        //bullet_6_04.transform.LookAt(PlayerC.Instance.transform.position);
+        //bullet_6_05.transform.LookAt(PlayerC.Instance.transform.position);
+        //bullet_6_06.transform.LookAt(PlayerC.Instance.transform.position);
 
-        bullet_6_01.transform.rotation = Quaternion.Euler(0, 0, 45);
-        bullet_6_02.transform.rotation = Quaternion.Euler(0, 0, 27);
-        bullet_6_03.transform.rotation = Quaternion.Euler(0, 0, 9);
-        bullet_6_04.transform.rotation = Quaternion.Euler(0, 0, -9);
-        bullet_6_05.transform.rotation = Quaternion.Euler(0, 0, -27);
-        bullet_6_06.transform.rotation = Quaternion.Euler(0, 0, -45);
+        //bullet_6_01.transform.rotation = Quaternion.Euler(0, 0, 45);
+        //bullet_6_02.transform.rotation = Quaternion.Euler(0, 0, 27);
+        //bullet_6_03.transform.rotation = Quaternion.Euler(0, 0, 9);
+        //bullet_6_04.transform.rotation = Quaternion.Euler(0, 0, -9);
+        //bullet_6_05.transform.rotation = Quaternion.Euler(0, 0, -27);
+        //bullet_6_06.transform.rotation = Quaternion.Euler(0, 0, -45);
     }
     void Shoot_3_2()
     {
         isShooting = true;
-        GameObject bulletT = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bulletM = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bulletB = Instantiate(reaper_bullet, transform.position, transform.rotation);
-
-        bulletT.transform.LookAt(PlayerC.Instance.transform.position);
-        bulletM.transform.LookAt(PlayerC.Instance.transform.position);
-        bulletB.transform.LookAt(PlayerC.Instance.transform.position);
-
-        bulletT.transform.rotation = Quaternion.Euler(0, 0, 15);
-        bulletM.transform.rotation = Quaternion.Euler(0, 0, 0);
-        bulletB.transform.rotation = Quaternion.Euler(0, 0, -15);
+        GameObject bulletT = Instantiate(reaper_bullet_3, transform.position, transform.rotation);
         StartCoroutine("Shoot_3_2C");
     }
     void Shoot_6_2()
     {
         isShooting = true;
-        GameObject bullet_6_01 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_02 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_03 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_04 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_05 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bullet_6_06 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-
-        bullet_6_01.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_02.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_03.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_04.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_05.transform.LookAt(PlayerC.Instance.transform.position);
-        bullet_6_06.transform.LookAt(PlayerC.Instance.transform.position);
-
-        bullet_6_01.transform.rotation = Quaternion.Euler(0, 0, 45);
-        bullet_6_02.transform.rotation = Quaternion.Euler(0, 0, 27);
-        bullet_6_03.transform.rotation = Quaternion.Euler(0, 0, 9);
-        bullet_6_04.transform.rotation = Quaternion.Euler(0, 0, -9);
-        bullet_6_05.transform.rotation = Quaternion.Euler(0, 0, -27);
-        bullet_6_06.transform.rotation = Quaternion.Euler(0, 0, -45);
+        GameObject bullet_6_01 = Instantiate(reaper_bullet_6, transform.position, transform.rotation);
         StartCoroutine("Shoot_3_2C");
     }
     
@@ -345,16 +318,6 @@ public class Reaper : MonoBehaviour
     IEnumerator Shoot_3_2C()
     {
         yield return new WaitForSeconds(0.5f);
-        GameObject bulletT = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bulletM = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        GameObject bulletB = Instantiate(reaper_bullet, transform.position, transform.rotation);
-
-        bulletT.transform.LookAt(PlayerC.Instance.transform.position);
-        bulletM.transform.LookAt(PlayerC.Instance.transform.position);
-        bulletB.transform.LookAt(PlayerC.Instance.transform.position);
-
-        bulletT.transform.rotation = Quaternion.Euler(0, 0, 15);
-        bulletM.transform.rotation = Quaternion.Euler(0, 0, 0);
-        bulletB.transform.rotation = Quaternion.Euler(0, 0, -15);
+        GameObject bulletT = Instantiate(reaper_bullet_3, transform.position, transform.rotation);
     }
 }

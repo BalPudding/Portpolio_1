@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
     public float damage;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Destroyer")
+        if (collision.gameObject.layer == 8)
         {
             Destroy(gameObject);
         }

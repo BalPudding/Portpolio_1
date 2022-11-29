@@ -77,8 +77,8 @@ public class PlayerC : MonoBehaviour
     void Update()
     {
         
-        Debug.DrawRay(transform.position, this.transform.right * distance, new Color(0, 1, 0));
-        Debug.Log(rayRange);
+        //Debug.DrawRay(transform.position, this.transform.right * distance, new Color(0, 1, 0));
+        //Debug.Log(rayRange);
         //이동제한
         if (transform.position.x <= playerDistrictL)
         {
@@ -484,7 +484,7 @@ public class PlayerC : MonoBehaviour
 
         if(shield.activeInHierarchy == false)
         {
-            if(collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy"||collision.gameObject.tag == "Bullet")
+            if(collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy"|| collision.gameObject.tag == "Bullet")
             {
                 OnDamage();
             }

@@ -466,7 +466,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236a969f822bcb4468fbecf1208b94c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reaper_bullet: {fileID: 6289482475987285421, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
+  reaper_bullet_3: {fileID: 4704260854444240139, guid: 13f6292bd8f8d274bbde777a5bd94ca2, type: 3}
+  reaper_bullet_6: {fileID: 6095750095451379754, guid: 52f5540fe169a8441ae81a97e0aa7e4a, type: 3}
+  difficulty: 4
 --- !u!1 &25393037 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3019323291004596668, guid: d794f0fd0caee3348b9bcb9419e8840d, type: 3}
@@ -1721,7 +1723,7 @@ GameObject:
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &175535763
 Transform:
   m_ObjectHideFlags: 0
@@ -3122,7 +3124,7 @@ GameObject:
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &359941008
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7024,28 +7026,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7483073542770841236, guid: 21bbaf06d9027ca498c3d216461b8d28, type: 3}
   m_PrefabInstance: {fileID: 16372064}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &974854256 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6289482475987285421, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-  m_PrefabInstance: {fileID: 5313425498829909194}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &974854262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974854256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6161e3e13e297a54f860129fee0204f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cankill: 0
-  damage: 15
-  effectSize: 3
-  health: 0
-  destroyRocate: -14
 --- !u!1001 &981552177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8858,7 +8838,7 @@ GameObject:
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1312913212
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13437,67 +13417,6 @@ PrefabInstance:
       objectReference: {fileID: 242241192}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afe12a038d941654a8799c939e4c95b0, type: 3}
---- !u!1001 &5313425498829909194
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 439.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -44.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5474717586770449115, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6289482475987285421, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_Name
-      value: Reaper_Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 6289482475987285421, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5a24a864954d9d944b744876d2abfd9b, type: 3}
 --- !u!1001 &7483073541401746475
 PrefabInstance:
   m_ObjectHideFlags: 0

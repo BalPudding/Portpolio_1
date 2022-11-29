@@ -6,7 +6,7 @@ public class Shuriken : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BulletDestroyer")
+        if (collision.gameObject.layer == 8)
         {
             Destroy(gameObject);
         }
