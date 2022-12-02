@@ -7,6 +7,8 @@ public class ReaperCamera : MonoBehaviour
     CameraController cameraController;
     PlayerC playerC;
     public GameObject boss_Intro;
+    public GameObject reaper_Health;
+
     private void Awake()
     {
         cameraController = GameObject.Find("MainCamera").GetComponent<CameraController>();
@@ -17,8 +19,9 @@ public class ReaperCamera : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             cameraController.ReaperCam();
-            playerC.transform.position = new Vector2(427.5f, transform.position.y);
+            playerC.transform.position = new Vector2(427.5f, transform.position.y+0.8f);
         }
         boss_Intro.SetActive(true);
+        reaper_Health.SetActive(true);
     }
 }

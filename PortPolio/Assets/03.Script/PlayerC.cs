@@ -76,8 +76,7 @@ public class PlayerC : MonoBehaviour
 
     void Update()
     {
-        
-        //Debug.DrawRay(transform.position, this.transform.right * distance, new Color(0, 1, 0));
+       
         //Debug.Log(rayRange);
         //이동제한
         if (transform.position.x <= playerDistrictL)
@@ -456,7 +455,7 @@ public class PlayerC : MonoBehaviour
         freeze = false;
     }
     //데미지메서드
-    void OnDamage()
+    public void OnDamage()
     {
         damagedObj.SetActive(true);
         animator.SetTrigger("Damaged");

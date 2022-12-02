@@ -8,6 +8,8 @@ public class Reaper : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public GameObject reaper_bullet_3;
     public GameObject reaper_bullet_6;
+    public GameObject drainFocus;
+    public GameObject drainCrossLine;
     int positionRange = 6;
     int patternRange = 4;
     float movingCool;
@@ -15,6 +17,9 @@ public class Reaper : MonoBehaviour
     bool patternCool;
     bool isMoving;
     bool isShooting;
+    float drainTimer;
+    bool isDraining;
+    bool isHit;
 
     private void Awake()
     {
@@ -45,7 +50,15 @@ public class Reaper : MonoBehaviour
             isShooting = false;
             patternCool = true;
             positionRange = Random.Range(0, 6);
-            patternRange = Random.Range(0,5);
+            patternRange = Random.Range(0,6);
+        }
+        if(isMoving == true)
+        {
+            gameObject.layer = 11;
+        }
+        else
+        {
+            gameObject.layer = 7;
         }
         //위치변경난수 + 패턴
         if (positionRange == 0)
@@ -79,6 +92,11 @@ public class Reaper : MonoBehaviour
                 {
                     patternCool = false;
                     Shoot_6_2();
+                }
+                if (patternRange == 5 && patternCool == true)
+                {
+                    patternCool = false;
+                    Draining();
                 }
             }
         }
@@ -114,6 +132,11 @@ public class Reaper : MonoBehaviour
                     patternCool = false;
                     Shoot_6_2();
                 }
+                if (patternRange == 5 && patternCool == true)
+                {
+                    patternCool = false;
+                    Draining();
+                }
             }
         }
         if (positionRange == 2)
@@ -147,6 +170,11 @@ public class Reaper : MonoBehaviour
                 {
                     patternCool = false;
                     Shoot_6_2();
+                }
+                if (patternRange == 5 && patternCool == true)
+                {
+                    patternCool = false;
+                    Draining();
                 }
             }
         }
@@ -182,6 +210,11 @@ public class Reaper : MonoBehaviour
                     patternCool = false;
                     Shoot_6_2();
                 }
+                if (patternRange == 5 && patternCool == true)
+                {
+                    patternCool = false;
+                    Draining();
+                }
             }
         }
         if (positionRange == 4)
@@ -215,6 +248,11 @@ public class Reaper : MonoBehaviour
                 {
                     patternCool = false;
                     Shoot_6_2();
+                }
+                if (patternRange == 5 && patternCool == true)
+                {
+                    patternCool = false;
+                    Draining();
                 }
             }
         }
@@ -250,11 +288,39 @@ public class Reaper : MonoBehaviour
                     patternCool = false;
                     Shoot_6_2();
                 }
+                if (patternRange == 5 && patternCool == true)
+                {
+                    patternCool = false;
+                    Draining();
+                }
+            }
+        }
+        if(isDraining == true)
+        {
+            drainTimer += Time.deltaTime;
+            if(isHit == true)
+            {
+                drainFocus.SetActive(false);
+                drainCrossLine.SetActive(false);
+                drainTimer = 0;
+                movingCool = 1;
+                isDraining = false;
+            }
+            else if (drainTimer >= 5)
+            {
+                drainFocus.SetActive(false);
+                drainCrossLine.SetActive(false);
+                ActiveDrain();
+                drainTimer = 0;
+                movingCool = 1;
+                isDraining = false;
             }
         }
         //애니메이터
         animator.SetBool("Moving", isMoving);
         animator.SetBool("Shooting", isShooting);
+        animator.SetBool("Draining", isDraining);
+        animator.SetBool("Hitted", isHit);
     }
 
     //공격패턴
@@ -262,40 +328,11 @@ public class Reaper : MonoBehaviour
     {
         isShooting = true;
         GameObject bulletT = Instantiate(reaper_bullet_3, transform.position, transform.rotation);
-        //GameObject bulletM = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        //GameObject bulletB = Instantiate(reaper_bullet, transform.position, transform.rotation);
-
-        //bulletT.transform.LookAt(PlayerC.Instance.transform.position);
-        //bulletM.transform.LookAt(PlayerC.Instance.transform.position);
-        //bulletB.transform.LookAt(PlayerC.Instance.transform.position);
-
-        //bulletT.transform.rotation = Quaternion.Euler(0, 0, 15);
-        //bulletM.transform.rotation = Quaternion.Euler(0, 0, 0);
-        //bulletB.transform.rotation = Quaternion.Euler(0, 0, -15);
     }
     void Shoot_6()
     {
         isShooting = true;
         GameObject bullet_6_01 = Instantiate(reaper_bullet_6, transform.position, transform.rotation);
-        //GameObject bullet_6_02 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        //GameObject bullet_6_03 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        //GameObject bullet_6_04 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        //GameObject bullet_6_05 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-        //GameObject bullet_6_06 = Instantiate(reaper_bullet, transform.position, transform.rotation);
-
-        //bullet_6_01.transform.LookAt(PlayerC.Instance.transform.position);
-        //bullet_6_02.transform.LookAt(PlayerC.Instance.transform.position);
-        //bullet_6_03.transform.LookAt(PlayerC.Instance.transform.position);
-        //bullet_6_04.transform.LookAt(PlayerC.Instance.transform.position);
-        //bullet_6_05.transform.LookAt(PlayerC.Instance.transform.position);
-        //bullet_6_06.transform.LookAt(PlayerC.Instance.transform.position);
-
-        //bullet_6_01.transform.rotation = Quaternion.Euler(0, 0, 45);
-        //bullet_6_02.transform.rotation = Quaternion.Euler(0, 0, 27);
-        //bullet_6_03.transform.rotation = Quaternion.Euler(0, 0, 9);
-        //bullet_6_04.transform.rotation = Quaternion.Euler(0, 0, -9);
-        //bullet_6_05.transform.rotation = Quaternion.Euler(0, 0, -27);
-        //bullet_6_06.transform.rotation = Quaternion.Euler(0, 0, -45);
     }
     void Shoot_3_2()
     {
@@ -309,7 +346,49 @@ public class Reaper : MonoBehaviour
         GameObject bullet_6_01 = Instantiate(reaper_bullet_6, transform.position, transform.rotation);
         StartCoroutine("Shoot_3_2C");
     }
+    void Draining()
+    {
+        drainFocus.SetActive(true);
+        drainCrossLine.SetActive(true);
+
+        isHit = false;
+        isDraining = true;
+        movingCool = -10;
+    }
+    void ActiveDrain()
+    {
+        UIManager.Instance.currentDrainHp += 50;
+        UIManager.Instance.currentHP -= 50;
+        PlayerC.Instance.OnDamage();
+    }
+
+    //피격판정
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Shuriken")
+        {
+            isHit = true;
+            UIManager.Instance.currentDrainHp -= 10;
+            if (UIManager.Instance.currentDrainHp <= 0)
+            {
+                UIManager.Instance.currentReaperFirstHp -= 10;
+                if (UIManager.Instance.currentReaperFirstHp <= 0)
+                {
+                    UIManager.Instance.currentReaperSecondHp -= 10;
+                    if (UIManager.Instance.currentReaperSecondHp <= 0)
+                    {
+                        Phase2();
+                    }
+                }
+            }
+        }
+    }
     
+    //2페이즈
+    void Phase2()
+    {
+
+    }
     //코루틴 뭉치
     IEnumerator Laugh()
     {

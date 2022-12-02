@@ -36,6 +36,15 @@ public class UIManager : MonoBehaviour
     public Slider deflectBar;
     public Slider slashBar;
     public Slider dragonBar;
+    public Slider reaperFirstHpBar;
+    public Slider reaperSecondHpBar;
+    public Slider reaperDrainHpBar;
+    public float currentReaperFirstHp=200;
+    float maxReaperFirstHp =200;
+    public float currentReaperSecondHp=200;
+    float maxReaperSecondHp=200;
+    public float currentDrainHp =0;
+    float maxDrainHp = 200;
     public float maxHP;
     public float currentHP;
     public float sMaxCool = 8;
@@ -92,5 +101,13 @@ public class UIManager : MonoBehaviour
         deflectBar.value = deCool / maxCool;
         //용검
         dragonBar.value = currentDragon / maxDragon;
+        //리퍼 체력
+        reaperFirstHpBar.value = currentReaperFirstHp / maxReaperFirstHp;
+        reaperSecondHpBar.value = currentReaperSecondHp / maxReaperSecondHp;
+        reaperDrainHpBar.value = currentDrainHp / maxDrainHp;
+        if (currentDrainHp <= 0)
+        {
+            currentDrainHp = 0;
+        }
     }
 }
