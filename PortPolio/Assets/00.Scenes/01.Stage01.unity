@@ -471,7 +471,7 @@ MonoBehaviour:
   reaper_bullet_6: {fileID: 6095750095451379754, guid: 52f5540fe169a8441ae81a97e0aa7e4a, type: 3}
   drainFocus: {fileID: 1846981787}
   drainCrossLine: {fileID: 734730377}
-  difficulty: 2
+  difficulty: 2.5
 --- !u!1 &25393037 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3019323291004596668, guid: d794f0fd0caee3348b9bcb9419e8840d, type: 3}
@@ -4861,8 +4861,8 @@ MonoBehaviour:
   reaperFirstHpBar: {fileID: 1611781871}
   reaperSecondHpBar: {fileID: 290145270}
   reaperDrainHpBar: {fileID: 2050903382}
-  currentReaperFirstHp: 200
-  currentReaperSecondHp: 200
+  currentReaperFirstHp: 0
+  currentReaperSecondHp: 10
   currentDrainHp: 0
   maxHP: 200
   currentHP: 200
@@ -14609,6 +14609,7 @@ MonoBehaviour:
   cameraMoving_00: 0
   changeRocate: 0
   player: {fileID: 242241192}
+  reaper: {fileID: 22849752}
 --- !u!4 &2133056633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7483073542770841236, guid: 21bbaf06d9027ca498c3d216461b8d28, type: 3}

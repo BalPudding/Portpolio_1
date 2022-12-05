@@ -39,9 +39,9 @@ public class UIManager : MonoBehaviour
     public Slider reaperFirstHpBar;
     public Slider reaperSecondHpBar;
     public Slider reaperDrainHpBar;
-    public float currentReaperFirstHp=200;
+    public float currentReaperFirstHp=10;
     float maxReaperFirstHp =200;
-    public float currentReaperSecondHp=200;
+    public float currentReaperSecondHp=10;
     float maxReaperSecondHp=200;
     public float currentDrainHp =0;
     float maxDrainHp = 200;

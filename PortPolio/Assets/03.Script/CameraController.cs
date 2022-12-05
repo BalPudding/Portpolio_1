@@ -4,17 +4,53 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    static CameraController instance = null;
+    Camera camera;
     public float cameraSpeed = 5.0f;
     public bool isHorizontal;
     public float cameraY = 0f;
     public bool cameraMoving_00;
     public float changeRocate;
     bool reaperCam;
+    bool phase2Cam;
 
     public GameObject player;
+    public GameObject reaper;
+    
 
+    private void Awake()
+    {
+        if(null == instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        camera = GetComponent<Camera>();   
+    }
+    public static CameraController Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
     private void Update()
     {
+        Vector3 fixedReaperPos;
+        fixedReaperPos = new Vector3(reaper.transform.position.x, reaper.transform.position.y, -10);
+        if (phase2Cam == true)
+        {
+            camera.orthographicSize = 3;
+            transform.position = Vector3.Lerp(transform.position, fixedReaperPos, 0.5f);
+        }
+        
         if(transform.position.x >= 411 && reaperCam ==false)
         {
             reaperCam = true;
@@ -40,5 +76,10 @@ public class CameraController : MonoBehaviour
     public void ReaperCam()
     {
         transform.position = new Vector3(438, -41,-10);
+    }
+
+    public void Phase2Cam()
+    {
+        phase2Cam = true;
     }
 }

@@ -20,6 +20,7 @@ public class Reaper : MonoBehaviour
     float drainTimer;
     bool isDraining;
     bool isHit;
+    bool isPhase_2;
 
     private void Awake()
     {
@@ -55,10 +56,12 @@ public class Reaper : MonoBehaviour
         if(isMoving == true)
         {
             gameObject.layer = 11;
+            gameObject.tag = "Untagged";
         }
         else
         {
             gameObject.layer = 7;
+            gameObject.tag = "Enemy";
         }
         //위치변경난수 + 패턴
         if (positionRange == 0)
@@ -306,7 +309,7 @@ public class Reaper : MonoBehaviour
                 movingCool = 1;
                 isDraining = false;
             }
-            else if (drainTimer >= 5)
+            else if (drainTimer >= 3)
             {
                 drainFocus.SetActive(false);
                 drainCrossLine.SetActive(false);
@@ -316,11 +319,17 @@ public class Reaper : MonoBehaviour
                 isDraining = false;
             }
         }
+        //2페이즈
+        if(isPhase_2 == true)
+        {
+            transform.position = Vector3.Lerp(transform.position, PlayerC.Instance.transform.position, 0.008f);
+        }
         //애니메이터
         animator.SetBool("Moving", isMoving);
         animator.SetBool("Shooting", isShooting);
         animator.SetBool("Draining", isDraining);
         animator.SetBool("Hitted", isHit);
+        animator.SetBool("Phase_2", isPhase_2);
     }
 
     //공격패턴
@@ -387,7 +396,11 @@ public class Reaper : MonoBehaviour
     //2페이즈
     void Phase2()
     {
-
+        CameraController.Instance.Phase2Cam();
+        movingCool = -500;
+        isHit = true;
+        isShooting = false;
+        StartCoroutine("Phase_2_C");
     }
     //코루틴 뭉치
     IEnumerator Laugh()
@@ -398,5 +411,10 @@ public class Reaper : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         GameObject bulletT = Instantiate(reaper_bullet_3, transform.position, transform.rotation);
+    }
+    IEnumerator Phase_2_C()
+    {
+        yield return new WaitForSeconds(3.0f);
+        isPhase_2 = true;
     }
 }
