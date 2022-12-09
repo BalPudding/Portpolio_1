@@ -5,27 +5,51 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //싱글턴
+    private static GameManager instance = null;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (UIManager.Instance.currentHP <= 0)
+        if (null == instance)
         {
-            Invoke("LoadDead",3f);
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
-    void LoadDead()
+    public static GameManager Instance
     {
-        UIManager.Instance.currentHP = 200;
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    //스테이지1으로
+    public void GoStage_01()
+    {
+        SceneManager.LoadScene("01.Stage01");
+    }
+    //메인메뉴로
+    public void GoMainMenu()
+    {
+        SceneManager.LoadScene("00.Intro");
+    }
+    //데드씬으로
+    public void LoadDead()
+    {
         SceneManager.LoadScene("09.Death");
+    }
+    //게임끄기
+    public void QuitGame()
+    {
+        Debug.Log("QuitGame");
+        Application.Quit();
     }
 }

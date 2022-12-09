@@ -27,8 +27,9 @@ public class Dropping : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-            jumping = false;
+        jumping = false;
     }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         jumping = true;

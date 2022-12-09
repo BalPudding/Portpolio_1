@@ -4,35 +4,30 @@ using UnityEngine;
 
 public class FieldChange : MonoBehaviour
 {
-    PlayerC playerC;
-    CameraController cameraController;
     public GameObject activate;
     public GameObject inactivate;
-    public float newDistrictL;
-    public float newDistrictR;
-    public float newDistrictB;
-    public float changeRocate;
-    private void Awake()
-    {
-        playerC = GameObject.Find("Player").GetComponent<PlayerC>();
-        cameraController = GameObject.Find("MainCamera").GetComponent<CameraController>();
-    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && CameraController.Instance.cameraMoving_00 == false)
         {
-            playerC.playerDistrictL = newDistrictL;
-            playerC.playerDistrictR = newDistrictR;
-            playerC.playerDistrictB = newDistrictB;
-            cameraController.changeRocate = changeRocate;
-            cameraController.cameraMoving_00 = true;
-            playerC.Freeze();
+            CameraController.Instance.cameraMoving_00 = true;
             activate.SetActive(true);
-            Invoke("Inactivate", 4f);
+            StartCoroutine(Inactivate());
         }
-    }
-    void Inactivate()
-    {
-        inactivate.SetActive(false);
+        else if (collision.gameObject.tag == "Player" && CameraController.Instance.cameraMoving_00 == true)
+        {
+            CameraController.Instance.cameraMoving_00 = false;
+            activate.SetActive(true);
+            StartCoroutine(Inactivate());
+            CameraController.Instance.isHorizontal = true;
+            CameraController.Instance.cameraY = -20;
+        }
+
+        IEnumerator Inactivate()
+        {
+            yield return new WaitForSeconds(4f);
+            inactivate.SetActive(false);
+        }
     }
 }

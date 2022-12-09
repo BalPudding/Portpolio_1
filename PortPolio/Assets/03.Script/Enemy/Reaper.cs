@@ -67,8 +67,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 0)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(430, -37.5f), 0.05f);
-            if(transform.position.x == 430 && transform.position.y == -37.5f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -37.5f), 0.05f);
+            if(transform.position.x == 390 && transform.position.y == -37.5f)
             {
                 isMoving = false;
                 if(patternRange == 0 && patternCool == true)
@@ -106,8 +106,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 1)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(446, -37.5f), 0.05f);
-            if (transform.position.x == 446 && transform.position.y == -37.5f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -37.5f), 0.05f);
+            if (transform.position.x == 405 && transform.position.y == -37.5f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)
@@ -145,8 +145,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 2)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(430, -41.2f), 0.05f);
-            if (transform.position.x == 430 && transform.position.y == -41.2f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -41.2f), 0.05f);
+            if (transform.position.x == 390 && transform.position.y == -41.2f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)
@@ -184,8 +184,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 3)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(446, -41.2f), 0.05f);
-            if (transform.position.x == 446 && transform.position.y == -41.2f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -41.2f), 0.05f);
+            if (transform.position.x == 405 && transform.position.y == -41.2f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)
@@ -223,8 +223,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 4)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(430, -45.7f), 0.05f);
-            if (transform.position.x == 430 && transform.position.y == -45.7f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -45.7f), 0.05f);
+            if (transform.position.x == 390 && transform.position.y == -45.7f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)
@@ -262,8 +262,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 5)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(446, -45.7f), 0.05f);
-            if (transform.position.x == 446 && transform.position.y == -45.7f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -45.7f), 0.05f);
+            if (transform.position.x == 405 && transform.position.y == -45.7f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)

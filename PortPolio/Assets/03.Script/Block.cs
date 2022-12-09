@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     public bool isOn;
     float cooling;
     bool change;
+    bool stopper;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -50,15 +51,31 @@ public class Block : MonoBehaviour
             cooling += Time.deltaTime;
         }
 
-        if (isOn == true)
+        if (isOn == true && stopper == false)
         {
-            spriteRenderer.color = new Color(1f, 1f, 1f, 255f);
-            boxCollider2D.enabled = true;
+            stopper = true;
+            StartCoroutine(IsOnC());
         }
-        else if (isOn == false)
+        else if (isOn == false&& stopper == true)
         {
-            spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
-            boxCollider2D.enabled = false;
+            stopper = false;
+            StartCoroutine(IsOffC());
         }
+    }
+    IEnumerator IsOnC()
+    {
+        GameObject obj = Resources.Load<GameObject>("Prefabs/BlinkBlock_Effect");
+        Instantiate(obj, transform.position, transform.rotation);
+        yield return new WaitForSeconds(0.6f);
+        spriteRenderer.color = new Color(1f, 1f, 1f, 255f);
+        boxCollider2D.enabled = true;
+    }
+    IEnumerator IsOffC()
+    {
+        GameObject obj = Resources.Load<GameObject>("Prefabs/BlinkBlock_Effect");
+        Instantiate(obj, transform.position, transform.rotation);
+        yield return new WaitForSeconds(0.6f);
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+        boxCollider2D.enabled = false;
     }
 }

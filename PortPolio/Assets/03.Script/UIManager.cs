@@ -109,5 +109,16 @@ public class UIManager : MonoBehaviour
         {
             currentDrainHp = 0;
         }
+        //»ç¸Á °¨Áö
+        if (UIManager.Instance.currentHP <= 0)
+        {
+            Invoke("LoadDead", 3f);
+        }
+    }
+    //»ç¸Á
+    void LoadDead()
+    {
+        GameManager.Instance.LoadDead();
+        currentHP = 200;
     }
 }
