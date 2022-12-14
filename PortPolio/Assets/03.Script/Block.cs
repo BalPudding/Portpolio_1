@@ -67,7 +67,7 @@ public class Block : MonoBehaviour
         GameObject obj = Resources.Load<GameObject>("Prefabs/BlinkBlock_Effect");
         Instantiate(obj, transform.position, transform.rotation);
         yield return new WaitForSeconds(0.6f);
-        spriteRenderer.color = new Color(1f, 1f, 1f, 255f);
+        spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         boxCollider2D.enabled = true;
     }
     IEnumerator IsOffC()

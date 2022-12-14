@@ -405,6 +405,7 @@
 "Assets/03.Script/ScrollUp.cs"
 "Assets/03.Script/Shuriken.cs"
 "Assets/03.Script/UIManager.cs"
+"Assets/06.Models/Up.cs"
 "Assets/Sci-Fi UI/Demo_Assets/scripts/GUI_Demo.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
