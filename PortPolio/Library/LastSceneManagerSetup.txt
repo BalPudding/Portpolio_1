@@ -1,5 +1,6 @@
 sceneSetups:
-- path: Assets/00.Scenes/02.Stage02.unity
+- path: Assets/TrueClouds/ExampleScenes/Scenes/Fireball/Fireball (works only starting
+    from Unity 2017).unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
