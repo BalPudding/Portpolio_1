@@ -415,7 +415,10 @@
 "Assets/03.Script/ScrollUp.cs"
 "Assets/03.Script/Shuriken.cs"
 "Assets/03.Script/UIManager.cs"
+"Assets/06.Models/CamController3D.cs"
+"Assets/06.Models/FirstPerson.cs"
 "Assets/06.Models/MoveTo.cs"
+"Assets/06.Models/PlayerController3D.cs"
 "Assets/06.Models/Slammed.cs"
 "Assets/06.Models/Up.cs"
 "Assets/EffectExamples/Shared/Scripts/DecalDestroyer.cs"
@@ -461,14 +464,6 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexShakeB.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
-"Assets/TrueClouds/ExampleScenes/Scenes/Sky/CloudsGenerator.cs"
-"Assets/TrueClouds/ExampleScenes/Scripts/FPS60.cs"
-"Assets/TrueClouds/ExampleScenes/Scripts/FPSDisplay.cs"
-"Assets/TrueClouds/ExampleScenes/Scripts/ScriptPerformanceMeasure.cs"
-"Assets/TrueClouds/Scripts/CloudCamera.cs"
-"Assets/TrueClouds/Scripts/CloudCamera3D.cs"
-"Assets/TrueClouds/Scripts/CloudPointLight.cs"
-"Assets/TrueClouds/Scripts/CloudsReadonlyAttribute.cs"
 -langversion:9.0
 
 /deterministic
