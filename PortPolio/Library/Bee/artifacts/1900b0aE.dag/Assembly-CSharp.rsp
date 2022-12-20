@@ -412,6 +412,7 @@
 "Assets/03.Script/PlayerC.cs"
 "Assets/03.Script/ReaperCamera.cs"
 "Assets/03.Script/Scrolling.cs"
+"Assets/03.Script/Scrolling3D.cs"
 "Assets/03.Script/ScrollUp.cs"
 "Assets/03.Script/Shuriken.cs"
 "Assets/03.Script/UIManager.cs"

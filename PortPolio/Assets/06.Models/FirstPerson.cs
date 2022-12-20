@@ -8,6 +8,7 @@ public class FirstPerson : MonoBehaviour
     public float moveSpeed = 2.0f; // 이동 속도
 
     private float xRotate = 0.0f; // 내부 사용할 X축 회전량은 별도 정의 ( 카메라 위 아래 방향 )
+    public float yRotate;
 
     void Update()
     {
@@ -20,7 +21,7 @@ public class FirstPerson : MonoBehaviour
         // 좌우로 움직인 마우스의 이동량 * 속도에 따라 카메라가 좌우로 회전할 양 계산
         float yRotateSize = Input.GetAxis("Mouse X") * turnSpeed;
         // 현재 y축 회전값에 더한 새로운 회전각도 계산
-        float yRotate = transform.eulerAngles.y + yRotateSize;
+        yRotate = transform.eulerAngles.y + yRotateSize;
 
         // 위아래로 움직인 마우스의 이동량 * 속도에 따라 카메라가 회전할 양 계산(하늘, 바닥을 바라보는 동작)
         float xRotateSize = -Input.GetAxis("Mouse Y") * turnSpeed;

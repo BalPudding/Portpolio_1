@@ -11,13 +11,11 @@ public class Slammed : MonoBehaviour
     bool isStanding;
     public bool standUp;
     Up reaperAAnim;
-    PlayerController3D playerController3D;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         reaperAAnim = GameObject.Find("reaper_AppearAnim").GetComponent<Up>();
-        playerController3D = gameObject.GetComponent<PlayerController3D>();
     }
     // Start is called before the first frame update
     void Start()
@@ -52,9 +50,8 @@ public class Slammed : MonoBehaviour
         {
             standUp = true;
             transform.position = new Vector3(transform.position.x, 0,8.5f);
-            transform.rotation = Quaternion.Euler(0, 180, 0);
             isStanding = true;
-            playerController3D.enabled = true;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         animator.SetBool("StandUp", isStanding);
     }

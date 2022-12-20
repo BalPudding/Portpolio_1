@@ -8,12 +8,14 @@ public class CamController3D : MonoBehaviour
     bool isStandUp;
     public GameObject wallCam;
     FirstPerson firstPerson;
+    PlayerController3D playerController3D;
     // Start is called before the first frame update
     void Start()
     {
         slammed = GameObject.Find("genji_MainModel").GetComponent<Slammed>();
         transform.rotation = Quaternion.Euler(new Vector3(23, 180, 0));
         firstPerson = wallCam.GetComponent<FirstPerson>();
+        playerController3D = GameObject.Find("genji_MainModel").GetComponent<PlayerController3D>();
     }
 
     // Update is called once per frame
@@ -23,15 +25,14 @@ public class CamController3D : MonoBehaviour
         {
             isStandUp = true;
             transform.position = new Vector3(transform.position.x, 0.8f, transform.position.z);
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             StartCoroutine("Disable");
         }
     }
     IEnumerator Disable()
     {
         yield return new WaitForSeconds(2.5f);
+        playerController3D.enabled = true;
         gameObject.SetActive(false);
         wallCam.SetActive(true);
-        firstPerson.enabled = true;
     }
 }
