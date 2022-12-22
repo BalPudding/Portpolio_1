@@ -6,8 +6,11 @@ public class PlayerController3D : MonoBehaviour
 {
     public GameObject wallCam;
     public GameObject knife;
+    public GameObject shuriken3D;
+    GameObject bulletHole;
     Animator animator;
     FirstPerson firstPerson;
+    Shooter shooter;
     bool isLeftClick;
     bool isRightClick;
     bool isSlash;
@@ -18,6 +21,8 @@ public class PlayerController3D : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         firstPerson = wallCam.GetComponent<FirstPerson>();
+        bulletHole = wallCam.transform.Find("BulletHole").gameObject;
+        shooter = bulletHole.GetComponent<Shooter>();
 
         animator.SetBool("StandUp", true);
     }
@@ -26,6 +31,7 @@ public class PlayerController3D : MonoBehaviour
     void Update()
     {
         knifeActiver += Time.deltaTime;
+        
         if(actionDelayOn == false)
         {
             actionDelay += Time.deltaTime;
@@ -41,14 +47,25 @@ public class PlayerController3D : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0) == true && actionDelayOn == true)
         {
             isLeftClick = true;
+            actionDelay = 0;
+            actionDelayOn = false;
+            Instantiate(shuriken3D, bulletHole.transform.position,Quaternion.Euler(firstPerson.xRotate+90,firstPerson.yRotate,90));
+            StartCoroutine("LeftClick");
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1) == true && actionDelayOn == true)
         {
             isRightClick = true;
+            actionDelay = 0;
+            actionDelayOn = false;
+            Instantiate(shuriken3D, bulletHole.transform.position, Quaternion.Euler(firstPerson.xRotate + 90, firstPerson.yRotate, 105));
+            Instantiate(shuriken3D, bulletHole.transform.position, Quaternion.Euler(firstPerson.xRotate + 90, firstPerson.yRotate, 90));
+            Instantiate(shuriken3D, bulletHole.transform.position, Quaternion.Euler(firstPerson.xRotate + 90, firstPerson.yRotate, 75));
         }
         else if (Input.GetKeyDown(KeyCode.V) == true)
         {
             isSlash = true;
+            actionDelay = 0;
+            actionDelayOn = false;
             knifeActiver = 0;
         }
         else if(animator.GetBool("StandUp") == true)
@@ -68,5 +85,13 @@ public class PlayerController3D : MonoBehaviour
         animator.SetBool("LeftClick", isLeftClick);
         animator.SetBool("RightClick", isRightClick);
         animator.SetBool("Slash", isSlash);
+    }
+    IEnumerator LeftClick()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(shuriken3D, bulletHole.transform.position, Quaternion.Euler(firstPerson.xRotate + 90, firstPerson.yRotate, 90));
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(shuriken3D, bulletHole.transform.position, Quaternion.Euler(firstPerson.xRotate + 90, firstPerson.yRotate, 90));
+        yield break;
     }
 }
