@@ -7,6 +7,7 @@ public class CamController3D : MonoBehaviour
     Slammed slammed;
     bool isStandUp;
     public GameObject wallCam;
+    public GameObject phase_1;
     FirstPerson firstPerson;
     PlayerController3D playerController3D;
     // Start is called before the first frame update
@@ -34,5 +35,6 @@ public class CamController3D : MonoBehaviour
         playerController3D.enabled = true;
         gameObject.SetActive(false);
         wallCam.SetActive(true);
+        phase_1.SetActive(true);
     }
 }

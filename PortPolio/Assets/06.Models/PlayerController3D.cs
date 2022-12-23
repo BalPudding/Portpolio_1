@@ -8,6 +8,7 @@ public class PlayerController3D : MonoBehaviour
     public GameObject knife;
     public GameObject shuriken3D;
     GameObject bulletHole;
+    GameObject slashZone;
     Animator animator;
     FirstPerson firstPerson;
     Shooter shooter;
@@ -17,11 +18,14 @@ public class PlayerController3D : MonoBehaviour
     float knifeActiver = 0;
     bool actionDelayOn = true;
     float actionDelay;
+
+    public float timeLimit;
     private void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
         firstPerson = wallCam.GetComponent<FirstPerson>();
         bulletHole = wallCam.transform.Find("BulletHole").gameObject;
+        slashZone = transform.Find("SlashZone").gameObject;
         shooter = bulletHole.GetComponent<Shooter>();
 
         animator.SetBool("StandUp", true);
@@ -67,6 +71,8 @@ public class PlayerController3D : MonoBehaviour
             actionDelay = 0;
             actionDelayOn = false;
             knifeActiver = 0;
+            slashZone.SetActive(true);
+            StartCoroutine("Slash");
         }
         else if(animator.GetBool("StandUp") == true)
         {
@@ -86,6 +92,15 @@ public class PlayerController3D : MonoBehaviour
         animator.SetBool("RightClick", isRightClick);
         animator.SetBool("Slash", isSlash);
     }
+    //충돌감지
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        {
+            UIManager3D.Instance.currentHP -= 30;
+        }
+    }
+    //코루틴뭉치
     IEnumerator LeftClick()
     {
         yield return new WaitForSeconds(0.1f);
@@ -93,5 +108,10 @@ public class PlayerController3D : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Instantiate(shuriken3D, bulletHole.transform.position, Quaternion.Euler(firstPerson.xRotate + 90, firstPerson.yRotate, 90));
         yield break;
+    }
+    IEnumerator Slash()
+    {
+        yield return new WaitForSeconds(0.7f);
+        slashZone.SetActive(false);
     }
 }
