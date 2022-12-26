@@ -6,10 +6,20 @@ public class ReaperBullet3D : MonoBehaviour
 {
     public float speed;
     public int health;
-    // Update is called once per frame
+    CinemaCon cinemaCon;
+
+    private void Awake()
+    {
+        cinemaCon = GameObject.FindObjectOfType<CinemaCon>();
+    }
     void Update()
     {
-        transform.Translate(0, speed * Time.deltaTime,0);
+        transform.Translate(0, speed * Time.deltaTime, 0);
+       if(cinemaCon.destroyBullet == true)
+        {
+            Destroy(gameObject);
+        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
