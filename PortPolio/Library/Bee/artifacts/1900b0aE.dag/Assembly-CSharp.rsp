@@ -430,6 +430,7 @@
 "Assets/06.Models/ReaperShooter3D.cs"
 "Assets/06.Models/Shooter.cs"
 "Assets/06.Models/Slammed.cs"
+"Assets/06.Models/TurnFast.cs"
 "Assets/06.Models/Up.cs"
 "Assets/EffectExamples/Shared/Scripts/DecalDestroyer.cs"
 "Assets/EffectExamples/Shared/Scripts/ExtinguishableFire.cs"

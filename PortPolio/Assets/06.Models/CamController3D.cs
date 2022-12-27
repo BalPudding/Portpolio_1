@@ -10,6 +10,7 @@ public class CamController3D : MonoBehaviour
     public GameObject phase_1;
     FirstPerson firstPerson;
     PlayerController3D playerController3D;
+    bool upPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,10 @@ public class CamController3D : MonoBehaviour
             isStandUp = true;
             transform.position = new Vector3(transform.position.x, 0.8f, transform.position.z);
             StartCoroutine("Disable");
+        }
+        if(CinemaCon.Instance.destroyBullet == true && upPosition == false)
+        {
+            upPosition = true;
         }
     }
     IEnumerator Disable()
