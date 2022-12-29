@@ -29,6 +29,7 @@ public class CinemaCon : MonoBehaviour
     }
     private static CinemaCon instance = null;
     PlayerController3D playerController3D;
+    FinishV finishV;
     UpAndSlammed upAndSlammed;
     Animator genAnimator;
     GameObject gen;
@@ -36,6 +37,7 @@ public class CinemaCon : MonoBehaviour
     TurnAndThrow turnAndThrow;
     public GameObject phase1;
     public GameObject phase2;
+    public GameObject phase3;
     public GameObject mainCam;
     public GameObject wallCam;
     float phase1Time;
@@ -47,6 +49,7 @@ public class CinemaCon : MonoBehaviour
     bool isStandUp;
     bool phase2Anim;
     bool isthrowing = false;
+    bool phase3AnimReady;
 
 
 
@@ -59,6 +62,7 @@ public class CinemaCon : MonoBehaviour
         playerController3D = gen.GetComponent<PlayerController3D>();
         upAndSlammed = gen.GetComponent<UpAndSlammed>();
         genAnimator = gen.GetComponent<Animator>();
+        finishV = gen.GetComponent<FinishV>();
         turnAndThrow = reap2PhaseAnim.GetComponent<TurnAndThrow>();
 
         //시작 카메라 시점
@@ -98,8 +102,10 @@ public class CinemaCon : MonoBehaviour
             playerController3D.enabled = false;
             reap2PhaseAnim.SetActive(true);
         }
+        //2페이즈 애니메이션 재생 & 센터로 이동
         if (turnAndThrow.isTurnOn == true && isthrowing == false)
         {
+            wallCam.transform.position = new Vector3(0, 1.45f, 0);
             gen.transform.rotation = Quaternion.Euler(0, 180, 0);
             gen.transform.Translate(0, 0, 8 * Time.deltaTime);
             if (gen.transform.position.z <= 2)
@@ -110,10 +116,23 @@ public class CinemaCon : MonoBehaviour
             if (gen.transform.position.z <= 0.1f)
             {
                 isthrowing = true;
-                playerController3D.enabled = true;
-                mainCam.SetActive(false);
+                StartCoroutine("Disable2");
             }
         }
+        //마무리 애니메이션 재생
+        if(destroyBullet == true && phase2Anim == true && phase3AnimReady == true)
+        {
+            phase3AnimReady = false;
+            wallCam.SetActive(false);
+            mainCam.SetActive(true);
+            mainCam.transform.localPosition = new Vector3(mainCam.transform.localPosition.x, 0.138f, mainCam.transform.localPosition.z);
+            mainCam.transform.rotation = Quaternion.Euler(0, 180, 0);
+            gen.transform.rotation = Quaternion.Euler(0, 180, 0);
+            phase3.SetActive(true);
+            playerController3D.enabled = false;
+            finishV.enabled = true;
+        } 
+        
     }
     //코루틴 뭉치
     IEnumerator Disable()
@@ -123,5 +142,16 @@ public class CinemaCon : MonoBehaviour
         mainCam.SetActive(false);
         wallCam.SetActive(true);
         phase1.SetActive(true);
+    }
+    IEnumerator Disable2()
+    {
+        yield return new WaitForSeconds(2.5f);
+        playerController3D.enabled = true;
+        mainCam.SetActive(false);
+        wallCam.SetActive(true);
+        phase2.SetActive(true);
+        phase1Time = 0;
+        destroyBullet = false;
+        phase3AnimReady = true;
     }
 }

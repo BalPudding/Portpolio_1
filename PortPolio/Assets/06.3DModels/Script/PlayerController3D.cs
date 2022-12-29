@@ -35,7 +35,7 @@ public class PlayerController3D : MonoBehaviour
     void Update()
     {
         knifeActiver += Time.deltaTime;
-        
+        //¾×¼Çµô·¹ÀÌ
         if(actionDelayOn == false)
         {
             actionDelay += Time.deltaTime;
