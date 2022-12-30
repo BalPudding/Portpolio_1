@@ -38,6 +38,7 @@ public class CinemaCon : MonoBehaviour
     public GameObject phase1;
     public GameObject phase2;
     public GameObject phase3;
+    Transform phase3T;
     public GameObject mainCam;
     public GameObject wallCam;
     float phase1Time;
@@ -64,6 +65,7 @@ public class CinemaCon : MonoBehaviour
         genAnimator = gen.GetComponent<Animator>();
         finishV = gen.GetComponent<FinishV>();
         turnAndThrow = reap2PhaseAnim.GetComponent<TurnAndThrow>();
+        phase3T = phase3.GetComponent<Transform>();
 
         //시작 카메라 시점
         mainCam.transform.rotation = Quaternion.Euler(new Vector3(23, 180, 0));
@@ -132,6 +134,10 @@ public class CinemaCon : MonoBehaviour
             playerController3D.enabled = false;
             finishV.enabled = true;
         } 
+        if(finishV.enabled == true && Input.GetKeyDown(KeyCode.V) == true)
+        {
+            mainCam.transform.LookAt(phase3T);
+        }
         
     }
     //코루틴 뭉치
