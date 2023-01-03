@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    PlayerC playerC;
     public bool cankill;
     public float damage;
     public float effectSize;
     public int health;
-    public float destroyRocate=-14f;
+    float destroyRocate;
     private void Start()
     {
-        playerC = GameObject.Find("Player").GetComponent<PlayerC>();
+        destroyRocate = 13f;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,7 +30,10 @@ public class Obstacle : MonoBehaviour
         {
             UIManager.Instance.currentHP -= damage;
         }
-        if(gameObject.transform.position.x - playerC.transform.position.x <= destroyRocate)
+    }
+    private void Update()
+    {
+        if (PlayerC.Instance.transform.position.x - gameObject.transform.position.x >= destroyRocate)
         {
             Destroy(gameObject);
         }

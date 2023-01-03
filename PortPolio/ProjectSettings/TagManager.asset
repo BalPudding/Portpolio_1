@@ -12,6 +12,7 @@ TagManager:
   - Destroyer
   - Bullet
   - Slash
+  - ScendCam
   layers:
   - Default
   - TransparentFX

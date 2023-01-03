@@ -38,9 +38,10 @@ public class CinemaCon : MonoBehaviour
     public GameObject phase1;
     public GameObject phase2;
     public GameObject phase3;
-    Transform phase3T;
+    public GameObject genKnife;
     public GameObject mainCam;
     public GameObject wallCam;
+    public GameObject smoke;
     float phase1Time;
     public float phase1TimeLimit;
     public bool destroyBullet;
@@ -51,6 +52,8 @@ public class CinemaCon : MonoBehaviour
     bool phase2Anim;
     bool isthrowing = false;
     bool phase3AnimReady;
+    bool activeTime;
+    float outTimecheck;
 
 
 
@@ -65,7 +68,6 @@ public class CinemaCon : MonoBehaviour
         genAnimator = gen.GetComponent<Animator>();
         finishV = gen.GetComponent<FinishV>();
         turnAndThrow = reap2PhaseAnim.GetComponent<TurnAndThrow>();
-        phase3T = phase3.GetComponent<Transform>();
 
         //시작 카메라 시점
         mainCam.transform.rotation = Quaternion.Euler(new Vector3(23, 180, 0));
@@ -128,17 +130,28 @@ public class CinemaCon : MonoBehaviour
             wallCam.SetActive(false);
             mainCam.SetActive(true);
             mainCam.transform.localPosition = new Vector3(mainCam.transform.localPosition.x, 0.138f, mainCam.transform.localPosition.z);
-            mainCam.transform.rotation = Quaternion.Euler(0, 180, 0);
             gen.transform.rotation = Quaternion.Euler(0, 180, 0);
+            mainCam.transform.rotation = Quaternion.Euler(0, 180, 0);
             phase3.SetActive(true);
             playerController3D.enabled = false;
             finishV.enabled = true;
         } 
+        //최후의 일격
         if(finishV.enabled == true && Input.GetKeyDown(KeyCode.V) == true)
         {
-            mainCam.transform.LookAt(phase3T);
+            genKnife.SetActive(true);
+            genAnimator.SetTrigger("Fin");
+            activeTime = true;
         }
-        
+        //퇴장 애니메이션 타임체크
+        if(activeTime == true)
+        {
+            outTimecheck += Time.deltaTime;
+            if (outTimecheck >= 3)
+            {
+                smoke.SetActive(true);
+            }
+        } 
     }
     //코루틴 뭉치
     IEnumerator Disable()

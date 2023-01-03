@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     PlayerC playerC;
     float spawnCool;
+    public float min;
+    public float max;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,22 +17,15 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerC.freeze != true)
-        {
             if (gameObject.transform.position.x - playerC.transform.position.x <= 13f && gameObject.transform.position.x - playerC.transform.position.x >= -13f)
             {
                 spawnCool -= Time.deltaTime;
                 if (spawnCool <= 0)
                 {
-                    spawnCool = Random.Range(2.0f, 3.0f);
+                    spawnCool = Random.Range(min, max);
                     GameObject obj = Resources.Load<GameObject>("Prefabs/Enemy");
                     Instantiate(obj, transform.position, transform.rotation);
                 }
             }
-            else
-            {
-                spawnCool = Random.Range(2.0f, 3.0f);
-            }
-        }
     }
 }
