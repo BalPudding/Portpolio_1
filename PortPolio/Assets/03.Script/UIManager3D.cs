@@ -34,6 +34,7 @@ public class UIManager3D : MonoBehaviour
     public Slider hpBar;
     public float maxHP;
     public float currentHP;
+
     void Update()
     {
         //Ã¼·Â

@@ -26,7 +26,7 @@ public class UpAndDisaapear : MonoBehaviour
     }
     void Start()
     {
-        timeCheck = 5;
+        timeCheck = 6.5f;
         smoke_00 = transform.Find("smoke_thick_00").gameObject;
         smoke_01 = transform.Find("smoke_thick_01").gameObject;
         smoke_02 = transform.Find("smoke_thick_02").gameObject;

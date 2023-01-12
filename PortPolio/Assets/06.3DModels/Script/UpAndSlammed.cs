@@ -43,7 +43,7 @@ public class UpAndSlammed: MonoBehaviour
             }
         }
         //넘어지기 & 일어나기 애니메이션 재생
-        if(reaperAAnim.upTime >= 9 && standUp == false)
+        if(reaperAAnim.upTime >= 10.4f && standUp == false)
         {
             standUp = true;
             transform.position = new Vector3(transform.position.x, 0,8.5f);

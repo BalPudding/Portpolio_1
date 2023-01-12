@@ -76,8 +76,6 @@ public class PlayerC : MonoBehaviour
 
     void Update()
     {
-       
-        //Debug.Log(rayRange);
         //이동제한
         if (transform.position.x <= playerDistrictL)
         {

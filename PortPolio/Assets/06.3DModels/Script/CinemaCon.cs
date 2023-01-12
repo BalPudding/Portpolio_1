@@ -33,6 +33,7 @@ public class CinemaCon : MonoBehaviour
     UpAndSlammed upAndSlammed;
     Animator genAnimator;
     GameObject gen;
+    GameObject genMesh;
     public GameObject reap2PhaseAnim;
     TurnAndThrow turnAndThrow;
     public GameObject phase1;
@@ -53,7 +54,7 @@ public class CinemaCon : MonoBehaviour
     bool isthrowing = false;
     bool phase3AnimReady;
     bool activeTime;
-    float outTimecheck;
+    public float outTimecheck;
 
 
 
@@ -68,6 +69,7 @@ public class CinemaCon : MonoBehaviour
         genAnimator = gen.GetComponent<Animator>();
         finishV = gen.GetComponent<FinishV>();
         turnAndThrow = reap2PhaseAnim.GetComponent<TurnAndThrow>();
+        genMesh = gen.transform.Find("Mesh").gameObject;
 
         //시작 카메라 시점
         mainCam.transform.rotation = Quaternion.Euler(new Vector3(23, 180, 0));
@@ -75,6 +77,17 @@ public class CinemaCon : MonoBehaviour
 
     void Update()
     {
+        //메쉬활성화조정
+        if(genAnimator.enabled == false)
+        {
+            genMesh.SetActive(false);
+            genKnife.SetActive(false);
+        }
+        else
+        {
+            genMesh.SetActive(true);
+        }
+
         //일어나기 애니메이션이 종료하면 게임시작
         if (upAndSlammed.standUp == true && isStandUp == false)
         {
@@ -147,11 +160,16 @@ public class CinemaCon : MonoBehaviour
         if(activeTime == true)
         {
             outTimecheck += Time.deltaTime;
-            if (outTimecheck >= 3)
+            if (outTimecheck >= 4)
             {
                 smoke.SetActive(true);
             }
         } 
+        //씬전환
+        if(outTimecheck >= 8.5f)
+        {
+            GameManager.Instance.GoStage_03();
+        }
     }
     //코루틴 뭉치
     IEnumerator Disable()

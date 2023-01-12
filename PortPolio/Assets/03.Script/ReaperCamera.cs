@@ -12,7 +12,7 @@ public class ReaperCamera : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             CameraController.Instance.ReaperCam();
-            PlayerC.Instance.transform.position = new Vector2(387.5f, transform.position.y+0.8f);
+            PlayerC.Instance.transform.position = new Vector2(387.5f, transform.position.y+1);
         }
         boss_Intro.SetActive(true);
         reaper_Health.SetActive(true);

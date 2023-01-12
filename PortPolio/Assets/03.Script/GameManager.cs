@@ -36,6 +36,16 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("01.Stage01");
     }
+    //스테이지2으로
+    public void GoStage_02()
+    {
+        SceneManager.LoadScene("02.Stage02");
+    }
+    //스테이지3으로
+    public void GoStage_03()
+    {
+        SceneManager.LoadScene("03.Stage03");
+    }
     //메인메뉴로
     public void GoMainMenu()
     {

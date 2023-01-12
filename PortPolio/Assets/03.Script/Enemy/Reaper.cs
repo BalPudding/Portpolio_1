@@ -6,12 +6,16 @@ public class Reaper : MonoBehaviour
 {
     Animator animator;
     SpriteRenderer spriteRenderer;
+    BoxCollider2D boxCollider2D;
+
     public GameObject reaper_bullet_3;
     public GameObject reaper_bullet_6;
     public GameObject drainFocus;
     public GameObject drainCrossLine;
+    public GameObject blackOut;
     int positionRange = 6;
     int patternRange = 4;
+    public int movingSpeed;
     float movingCool;
     public float difficulty;
     bool patternCool;
@@ -26,6 +30,7 @@ public class Reaper : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
     void Start()
     {
@@ -34,15 +39,14 @@ public class Reaper : MonoBehaviour
 
     void Update()
     {
+        //float pos = transform.position.x - PlayerC.Instance.transform.position.x;
+        //Debug.Log(transform.position.x - PlayerC.Instance.transform.position.x);
         //좌우반전
-        if(transform.position.x - PlayerC.Instance.transform.position.x<=0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
+        
+        //질문사항
+        //flipY는 되는데 flipX만 먹통임
+
+
         //움직임 속도
         movingCool += Time.deltaTime;
         if (movingCool >= difficulty)
@@ -51,23 +55,22 @@ public class Reaper : MonoBehaviour
             isShooting = false;
             patternCool = true;
             positionRange = Random.Range(0, 6);
-            patternRange = Random.Range(0,6);
+            patternRange = Random.Range(0, 6);
         }
         if(isMoving == true)
         {
-            gameObject.layer = 11;
-            gameObject.tag = "Untagged";
+            boxCollider2D.enabled = false;
+            isHit = false;
         }
-        else
+        if(isMoving == false)
         {
-            gameObject.layer = 7;
-            gameObject.tag = "Enemy";
+            boxCollider2D.enabled = true;
         }
         //위치변경난수 + 패턴
         if (positionRange == 0)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -37.5f), 0.05f);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -37.5f), movingSpeed*Time.deltaTime);
             if(transform.position.x == 390 && transform.position.y == -37.5f)
             {
                 isMoving = false;
@@ -106,7 +109,7 @@ public class Reaper : MonoBehaviour
         if (positionRange == 1)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -37.5f), 0.05f);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -37.5f), movingSpeed * Time.deltaTime);
             if (transform.position.x == 405 && transform.position.y == -37.5f)
             {
                 isMoving = false;
@@ -145,7 +148,7 @@ public class Reaper : MonoBehaviour
         if (positionRange == 2)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -41.2f), 0.05f);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -41.2f), movingSpeed * Time.deltaTime);
             if (transform.position.x == 390 && transform.position.y == -41.2f)
             {
                 isMoving = false;
@@ -184,7 +187,7 @@ public class Reaper : MonoBehaviour
         if (positionRange == 3)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -41.2f), 0.05f);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -41.2f), movingSpeed * Time.deltaTime);
             if (transform.position.x == 405 && transform.position.y == -41.2f)
             {
                 isMoving = false;
@@ -223,8 +226,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 4)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -45.7f), 0.05f);
-            if (transform.position.x == 390 && transform.position.y == -45.7f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(390, -45.3f), movingSpeed * Time.deltaTime);
+            if (transform.position.x == 390 && transform.position.y == -45.3f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)
@@ -262,8 +265,8 @@ public class Reaper : MonoBehaviour
         if (positionRange == 5)
         {
             isMoving = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -45.7f), 0.05f);
-            if (transform.position.x == 405 && transform.position.y == -45.7f)
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(405, -45.3f), movingSpeed * Time.deltaTime);
+            if (transform.position.x == 405 && transform.position.y == -45.3f)
             {
                 isMoving = false;
                 if (patternRange == 0 && patternCool == true)
@@ -322,7 +325,8 @@ public class Reaper : MonoBehaviour
         //2페이즈
         if(isPhase_2 == true)
         {
-            transform.position = Vector3.Lerp(transform.position, PlayerC.Instance.transform.position, 0.008f);
+            transform.position = Vector2.MoveTowards(transform.position, PlayerC.Instance.transform.position, movingSpeed*Time.deltaTime);
+            boxCollider2D.enabled = true;
         }
         //애니메이터
         animator.SetBool("Moving", isMoving);
@@ -391,6 +395,12 @@ public class Reaper : MonoBehaviour
                 }
             }
         }
+        //2페이즈시 씬전환
+        if(isPhase_2 == true && collision.gameObject.tag == "Player")
+        {
+            blackOut.SetActive(true);
+            StartCoroutine("BlackOut");
+        }
     }
     
     //2페이즈
@@ -416,5 +426,10 @@ public class Reaper : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
         isPhase_2 = true;
+    }
+    IEnumerator BlackOut()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameManager.Instance.GoStage_02();
     }
 }
